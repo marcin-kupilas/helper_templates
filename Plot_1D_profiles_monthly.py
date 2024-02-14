@@ -266,32 +266,23 @@ def Plot_1D_profiles_monthly(ds=None, variables=None, gph=False, z=False, log=Fa
                         print("plotting ", dataset.attrs['ds_label'], "var", var)
                         
                         ## Plot obs as a bolder and more visible line
-                        print(dataset.attrs['ds_props'])
-                        if "OBS" in dataset.attrs['ds_props']:
-                            dataset[var].plot(ax=axes,ylim=[y_r[0],y_r[1]],xlim=[qr[0],qr[1]], \
-                                              label=dataset.attrs['ds_label'], linewidth="1.5", marker="o", \
-                                              markersize=4, color="k",linestyle=line_style[jj], **axis_types)
-                        else:
-                            dataset[var].plot(ax=axes,ylim=[y_r[0],y_r[1]],xlim=[qr[0],qr[1]], \
-                                              color=colors[ii],label=dataset.attrs['ds_label'],linestyle=line_style[jj],**axis_types)
+                        # print(dataset.attrs['ds_props'])
+                        # if "OBS" in dataset.attrs['ds_props']:
+                        #     dataset[var].plot(ax=axes,ylim=[y_r[0],y_r[1]],xlim=[qr[0],qr[1]], \
+                        #                       label=dataset.attrs['ds_label'], linewidth="1.5", marker="o", \
+                        #                       markersize=4, color="k",linestyle=line_style[jj], **axis_types)
+                        # else:
+                        #     dataset[var].plot(ax=axes,ylim=[y_r[0],y_r[1]],xlim=[qr[0],qr[1]], \
+                        #                       color=colors[ii],label=dataset.attrs['ds_label'],linestyle=line_style[jj],**axis_types)
     
                         if std==True:
                             if var + "_std" in dataset.data_vars:
-                                if "MIPAS" in dataset.attrs['ds_label']:
-                                    y_std = dataset[axis_types['y']]
-                                    var_std = dataset[var + "_std"]
-                                    var_std_pve = dataset[var] + 2*var_std
-                                    var_std_nve = dataset[var] - 2*var_std
-                                    axes.fill_betweenx(y_std,var_std_pve,var_std_nve,color="k",alpha=0.075)   
-                                    print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
-                        
-                                else:
-                                    y_std = dataset[axis_types['y']]
-                                    var_std = dataset[var + "_std"]
-                                    var_std_pve = dataset[var] + 2*var_std
-                                    var_std_nve = dataset[var] - 2*var_std
-                                    axes.fill_betweenx(y_std,var_std_pve,var_std_nve,color=colors[ii],alpha=0.15)
-                                    print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
+                                y_std = dataset[axis_types['y']]
+                                var_std = dataset[var + "_std"]
+                                var_std_pve = dataset[var] + 2*var_std
+                                var_std_nve = dataset[var] - 2*var_std
+                                axes.fill_betweenx(y_std,var_std_pve,var_std_nve,color=colors[ii],alpha=0.15)
+                                print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
     
                         jj += 1
     
@@ -326,21 +317,21 @@ def Plot_1D_profiles_monthly(ds=None, variables=None, gph=False, z=False, log=Fa
     
                         if std==True:
                             if var + "_std" in dataset.data_vars:
-                                if "MIPAS" in dataset.attrs['ds_label']:
-                                    y_std = dataset[axis_types['y']]
-                                    var_std = dataset[var + "_std"].isel(time=i)
-                                    var_std_pve = dataset[var].isel(time=i) + 2*var_std
-                                    var_std_nve = dataset[var].isel(time=i) - 2*var_std
-                                    axes[row,col].fill_betweenx(y_std,var_std_pve,var_std_nve,color="k",alpha=0.075)   
-                                    print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
+                                # if "MIPAS" in dataset.attrs['ds_label']:
+                                #     y_std = dataset[axis_types['y']]
+                                #     var_std = dataset[var + "_std"].isel(time=i)
+                                #     var_std_pve = dataset[var].isel(time=i) + 2*var_std
+                                #     var_std_nve = dataset[var].isel(time=i) - 2*var_std
+                                #     axes[row,col].fill_betweenx(y_std,var_std_pve,var_std_nve,color="k",alpha=0.075)   
+                                #     print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
                         
-                                else:
-                                    y_std = dataset[axis_types['y']]
-                                    var_std = dataset[var + "_std"].isel(time=i)
-                                    var_std_pve = dataset[var].isel(time=i) + 2*var_std
-                                    var_std_nve = dataset[var].isel(time=i) - 2*var_std
-                                    axes[row,col].fill_betweenx(y_std,var_std_pve,var_std_nve,color=colors[ii],alpha=0.15)
-                                    print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
+                                # else:
+                                y_std = dataset[axis_types['y']]
+                                var_std = dataset[var + "_std"].isel(time=i)
+                                var_std_pve = dataset[var].isel(time=i) + 2*var_std
+                                var_std_nve = dataset[var].isel(time=i) - 2*var_std
+                                axes[row,col].fill_betweenx(y_std,var_std_pve,var_std_nve,color=colors[ii],alpha=0.15)
+                                print("#### ok for dataset", dataset.attrs['ds_label'], "var", var + "_std")
     
                         jj += 1
     
@@ -452,11 +443,14 @@ def Plot_1D_profiles_monthly(ds=None, variables=None, gph=False, z=False, log=Fa
                 axes.legend(loc='lower right', bbox_to_anchor=(1.25,0),framealpha=1)
             else:
                 axes[row,col].legend(loc='lower right', bbox_to_anchor=(1.25,0),framealpha=1)
+        elif legend==False:
+            print("No legend")
         else:
             if "time" not in ds_var[0].dims:
                 axes.legend(framealpha=legend[2])
             else:
                 axes[legend[0],legend[1]].legend(framealpha=legend[2])
+        
 
         ## Axis labels
         if "time" not in ds_var[0].dims:
@@ -510,19 +504,19 @@ def Plot_1D_profiles_monthly(ds=None, variables=None, gph=False, z=False, log=Fa
     #     if diff_type!=None: ax[2].tick_params(which="major",labelsize=fontsize,width=1,length=6,direction="out",right=False)
         else:
             axes[row,col].grid(True)
-            axes[row,col].grid(which='minor', alpha=0.3,linestyle='--')
             axes[row,col].set_xticks(np.linspace(qr[0],qr[1],qr[2]))
             x_tick_labels = [qr[4].format(label) for label in np.linspace(qr[0], qr[1], qr[2])]
             axes[row,col].set_xticklabels(x_tick_labels)
             axes[row,col].xaxis.set_minor_locator(MultipleLocator(float(qr[3])))
     
+
             # y ticks
-            axes[row,col].yaxis.set_major_locator(ticker.LogLocator(base=10.0, numticks=15))
-    
             if gph==False or z==False:
-                axes[row,col].tick_params(which="minor",length=10)
+                # axes[row,col].yaxis.set_major_locator(MultipleLocator(y_r[2]))
+                print("Standard default log tick controls used")
             else:
-                axes[row,col].yaxis.set_minor_locator(MultipleLocator(y_r[2]))
+                axes[row,col].set_yticks(np.linspace(y_r[0],y_r[1],y_r[2]))
+                axes[row,col].yaxis.set_minor_locator(MultipleLocator(float(y_r[3])))
     
     
     
@@ -537,7 +531,7 @@ def Plot_1D_profiles_monthly(ds=None, variables=None, gph=False, z=False, log=Fa
         
             # Grid controls
             axes[row,col].grid(True)
-            axes[row,col].grid(which='minor', alpha=0.2,linestyle='--')
+            axes[row,col].grid(which='minor', alpha=0.3,linestyle='--')
 
         #############################
         # End tick and grid controls
