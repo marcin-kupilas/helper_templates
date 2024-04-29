@@ -19,7 +19,7 @@ def P_to_GPH_ncol(ds):
     T = ds['T']
     
     #---------------------------------------------------------------
-    # Create new variable mmk_gph 
+    # Create new variable gph 
     #---------------------------------------------------------------    
     
     # Get dimensions
