@@ -29,7 +29,7 @@ def P_to_GPH_lat_lon(ds):
     P = ds['lev']
     
     #---------------------------------------------------------------
-    # Create new variable mmk_gph 
+    # Create new variable gph 
     #---------------------------------------------------------------   
     
     # Get dimensions
