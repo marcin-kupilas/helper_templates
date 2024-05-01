@@ -118,11 +118,11 @@ def Plot_2D_time_height(ds=None, var=None, gph=False, log=False, concentration=F
     ## Set-up datasets
     if ds!=None:
         if len(ds)==2:
-            ds0=ds[0]
-            ds1=ds[1]
+            ds0=ds[0][var]
+            ds1=ds[1][var]
             # set_up_plot_data(ds0,ds1) todo
         else:
-            ds0=ds[0]
+            ds0=ds[0][var]
             # set_up_plot_data(ds0) 
     
     ## Convert to concentration
@@ -609,8 +609,8 @@ def Plot_2D_time_height(ds=None, var=None, gph=False, log=False, concentration=F
             if diff_type!=None: ax[2].set_title(diff_type + " difference",fontsize=fontsize)
 
     else:
-        ax[0].set_title(var + " " + ds[0].attrs['ds_tag'],fontsize=fontsize)
-        ax[1].set_title(var + " " + ds[1].attrs['ds_tag'],fontsize=fontsize)
+        ax[0].set_title(var + " " + ds[0][var].attrs['ds_tag'],fontsize=fontsize)
+        ax[1].set_title(var + " " + ds[1][var].attrs['ds_tag'],fontsize=fontsize)
         if diff_type!=None: ax[2].set_title(diff_type + " difference",fontsize=fontsize)
         
     # savefig=False

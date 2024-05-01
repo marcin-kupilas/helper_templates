@@ -7,7 +7,7 @@ import nc_time_axis
 # Prepare data for vertical velocity perturbation calculations
 def prepare_data_omega(ds_raw, ds_T):
    
-    print("Converting omega (Pa/s) to vertical velocity (m/s)")  
+    # print("Converting omega (Pa/s) to vertical velocity (m/s)")  
     # ds_raw : xr dataset containing 'lev' and 'OMEGA'
     # ds_T : xr dataset containing "Temperature"
 
@@ -23,12 +23,6 @@ def prepare_data_omega(ds_raw, ds_T):
     ds = -ds_raw/(rho*g) # Units: kg m^-1 s^-2 * s^-1 * kg^-1 m^3 * m^-1 s^2 => m s^-1
     ds.attrs['long_name'] = "Vertical velocity"
     ds.name = "w"
-    
-    # mmk debug
-    print("Debug Notes")
-    print("ds_T.isel(time=0,ncol=0).values\n", ds_T.isel(time=0,ncol=0).values)
-    print("ds_raw.isel(time=0,ncol=0).values\n", ds_raw.isel(time=0,ncol=0).values)
-    print("ds.isel(time=0,ncol=0).values\n", ds.isel(time=0,ncol=0).values)
     
     return ds
  
