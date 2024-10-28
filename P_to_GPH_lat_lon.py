@@ -29,7 +29,7 @@ def P_to_GPH_lat_lon(ds):
     P = ds['lev']
     
     #---------------------------------------------------------------
-    # Create new variable mmk_gph 
+    # Create new variable gph 
     #---------------------------------------------------------------   
     
     # Get dimensions
@@ -108,7 +108,7 @@ def P_to_GPH_lat_lon(ds):
     ds['gph'].attrs['long_name'] = "Approximate Geopotential Height (km)"
     ds['gph'].attrs['notes'] = "Calculated by integrating hydrostatic equation using lev as pressure"
     
-    # Calculate geometric height z using z = (re*gph)/(re - gph), re = earth radius 6 378.1 km
+    # Calculate geometric height z using z = (re*gph)/(re - gph), re = earth radius 6 371 km
     re = 6371 #km
     ds['z'] = (ds['gph']*re)/(re-ds['gph'])
     ds['z'].attrs['long_name'] = "Approximate Geometric Altitude (km)"
